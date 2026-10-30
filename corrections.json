@@ -1,0 +1,20 @@
+{
+  "_aide": "Corrections appliquées à chaque construction. noms : réponse brute du champ « Nom et Prénom » -> [Prénom, Nom]. structures : réponse brute -> nom affiché (vide pour masquer). communes : orthographe saisie -> nom officiel. liens_ignores : valeurs saisies à ne pas afficher. exclure : personnes à retirer de l'annuaire (nom tel que saisi). fautes : remplacements de texte. surcharges : identifiant de fiche (ex. maelle-guyon) -> { champ: nouvelle valeur }, pour corriger une information en cours d'année (tel, email, pitch, communes, liens...).",
+  "noms": {
+    "GUYON Maëlle": ["Maëlle", "Guyon"],
+    "COUDIERE Soizic": ["Soizic", "Coudière"],
+    "Lincou": ["Vicky", "Lincou"]
+  },
+  "structures": {
+    "Patrice Guichard (EI) Diet anou": "Diet anou"
+  },
+  "communes": {},
+  "liens_ignores": [],
+  "exclure": [],
+  "surcharges": {},
+  "fautes": {
+    "allimentaires": "alimentaires",
+    "impédencemètre": "impédancemètre",
+    "Végétariennesé": "Végétariennes"
+  }
+}

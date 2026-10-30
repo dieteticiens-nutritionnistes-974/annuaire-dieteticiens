@@ -1,0 +1,6 @@
+donnees/
+cache/
+rapport-anomalies.md
+*.csv
+.DS_Store
+__pycache__/
