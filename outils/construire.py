@@ -207,6 +207,11 @@ def construire(chemin_csv):
             if champ == "instagram" and re.fullmatch(r"@?[\w.]+", brut_l) and "instagram" not in brut_l:
                 u = "https://www.instagram.com/" + brut_l.lstrip("@") + "/"
                 anomalies.append(f"{qui} : identifiant Instagram « {brut_l} » converti en lien, à vérifier")
+            elif champ == "facebook" and brut_l.startswith("profile.php"):
+                u = "https://www.facebook.com/" + brut_l
+            elif champ == "linkedin" and re.fullmatch(r"[a-z0-9-]+-[a-z0-9]+", brut_l):
+                u = f"https://www.linkedin.com/in/{brut_l}/"
+                anomalies.append(f"{qui} : identifiant LinkedIn « {brut_l} » converti en lien, à vérifier")
             else:
                 u = url(brut_l)
             if not u:
@@ -218,6 +223,10 @@ def construire(chemin_csv):
                 continue
             if champ not in ("site", "autre") and t not in (champ, "site"):
                 anomalies.append(f"{qui} : le champ {champ} contient un lien {t}")
+            if t in ("instagram", "linkedin"):
+                u = u.split("?")[0]  # retire les paramètres de suivi
+            if t in liens and liens[t] != u:
+                anomalies.append(f"{qui} : deux liens {t} différents, seul le premier est affiché (« {u[:60]} » ignoré)")
             liens.setdefault(t, u)
         if "rdv" in liens and liens.get("site") == liens["rdv"]:
             del liens["site"]
@@ -246,8 +255,11 @@ def construire(chemin_csv):
             "tel": tel(v(col["tel"])),
             "email": v(col["email"]).lower(),
             "liens": liens,
-            "pitch": v(col["pitch"]),
+            "pitch": re.sub(r"\*\*(.+?)\*\*", r"\1", v(col["pitch"])),
         }
+        if p["rpps"] and not re.fullmatch(r"[0-9A-Z]{9,12}", p["rpps"]):
+            anomalies.append(f"{qui} : numéro {p['rppsType']} illisible « {p['rpps']} » (abîmé par le tableur ?), non affiché")
+            p["rpps"] = ""
         if p["structure"] == brut:
             p["structure"] = ""
         for champ, val in corr.get("surcharges", {}).get(p["id"], {}).items():
