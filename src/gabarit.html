@@ -286,7 +286,10 @@ let map, geoLayer, pinLayer;
 function initMap() {
   map = L.map("map", { zoomSnap: 0.25, minZoom: 9, maxZoom: 14, attributionControl: true, scrollWheelZoom: false });
   geoLayer = L.geoJSON(GEO, { style: () => ({}), onEachFeature: (f, l) => l.on("click", () => selectCommune(f.properties.nom)) }).addTo(map);
-  map.fitBounds(geoLayer.getBounds(), { padding: [10, 10] });
+  map.setView([-21.13, 55.53], 10);
+  fitIsland();
+  // Recadrer sur l'île si la carte n'avait pas encore de taille à l'initialisation
+  if (window.ResizeObserver) new ResizeObserver(() => { map.invalidateSize(); if (!map._fitted) fitIsland() }).observe(document.getElementById("map"));
   map.setMaxBounds(geoLayer.getBounds().pad(0.4));
   pinLayer = L.layerGroup().addTo(map);
   map.attributionControl.setPrefix(false).addAttribution("IGN Admin Express");
@@ -297,6 +300,12 @@ function initMap() {
     document.body.classList.add("osm"); styleMap();
   };
   probe.src = "https://tile.openstreetmap.org/10/747/564.png";
+}
+function fitIsland() {
+  const s = map.getSize();
+  if (!s.x || !s.y) return;
+  map.fitBounds(geoLayer.getBounds(), { padding: [10, 10] });
+  map._fitted = true;
 }
 const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 function styleMap() {
@@ -354,7 +363,7 @@ function render() {
     document.getElementById("v-" + v).hidden = st.view !== v;
     document.getElementById("t-" + v).setAttribute("aria-selected", st.view === v);
   }
-  if (st.view === "carte") { renderSide(P.filter(p => matches(p, true))); styleMap(); setTimeout(() => map.invalidateSize(), 0) }
+  if (st.view === "carte") { renderSide(P.filter(p => matches(p, true))); styleMap(); setTimeout(() => { map.invalidateSize(); if (!map._fitted) fitIsland() }, 0) }
   if (st.view === "communes") renderCommunes(list);
   if (st.view === "trombi") renderTrombi(list);
 }
