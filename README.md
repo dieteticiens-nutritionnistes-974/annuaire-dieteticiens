@@ -2,7 +2,7 @@
 
 Annuaire des diététiciens libéraux adhérents : carte des communes, liste par commune, trombinoscope et fiches détaillées.
 
-Site : https://tic974.github.io/annuaire-dieteticiens/
+Site : https://dieteticiens-nutritionnistes-974.github.io/annuaire-dieteticiens/
 
 ## Mettre à jour l'annuaire
 

@@ -1,7 +1,7 @@
 # Consignes pour l'agent IA
 
 Ce dépôt publie l'annuaire des diététiciens libéraux de La Réunion sur GitHub Pages :
-https://tic974.github.io/annuaire-dieteticiens/
+https://dieteticiens-nutritionnistes-974.github.io/annuaire-dieteticiens/
 
 Les personnes qui te sollicitent ne sont pas développeuses. Parle-leur simplement, en français, explique ce que tu fais et **demande toujours leur accord avant de publier** (`git push`).
 
@@ -32,7 +32,7 @@ Prérequis : `git`, `python3` et Pillow (`python3 -m pip install Pillow` si l'im
 6. Ouvrir `index.html` dans un navigateur et vérifier : carte avec pastilles, vue « Par commune », trombinoscope, ouverture d'une fiche.
 7. Résumer les changements par rapport à la version en ligne (`git diff --stat`, fiches ajoutées ou retirées) et **demander l'accord** de publier.
 8. `git add index.html corrections.json` (et les autres fichiers volontairement modifiés), commit avec un message clair (ex. « Annuaire 2027 : 15 fiches »), `git push`.
-9. GitHub Pages republie en une à deux minutes. Vérifier https://tic974.github.io/annuaire-dieteticiens/ (forcer le rechargement).
+9. GitHub Pages republie en une à deux minutes. Vérifier https://dieteticiens-nutritionnistes-974.github.io/annuaire-dieteticiens/ (forcer le rechargement).
 
 ## Modifications ponctuelles en cours d'année
 
